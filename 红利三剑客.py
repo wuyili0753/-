@@ -195,7 +195,7 @@ if __name__ == "__main__":
 
 def send_wechat_notification(message):
     """通过 Server酱 发送微信通知"""
-    sendkey = "你的_Server酱_SendKey"  # 替换成你的 SendKey（后面会讲如何获取）
+    sendkey = "SCT293135TZLVzpANuYb17FhoQ248enhYR"  # 替换成你的 SendKey（后面会讲如何获取）
     url = f"https://sctapi.ftqq.com/{sendkey}.send"
     data = {
         "text": "红利三剑客",  # 微信消息标题
@@ -219,4 +219,5 @@ if 'selected_etf' in locals() and 'last_signal' in locals():
     """
     send_wechat_notification(message)
 else:
+
     send_wechat_notification("❌ 策略运行失败，请检查日志！")
