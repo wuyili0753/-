@@ -2,7 +2,7 @@ name: ETF Strategy Runner
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # UTC 时间 12:00 PM（北京时间 20:00 PM）
+    - cron: '0 12 * * *'  # UTC 时间 12:00（北京时间 20:00）
   workflow_dispatch:     # 允许手动触发
 
 jobs:
@@ -19,8 +19,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pandas numpy matplotlib requests
+          pip install pandas numpy matplotlib requests  # 或使用 requirements.txt
 
       - name: Run strategy
         run: |
-          python 红利三剑客.py
+          python 红利三剑客.py  # 确保脚本在根目录，或调整路径
+        shell: bash
+
+      - name: Upload logs  # 可选：上传日志便于排查
+        if: always()  # 无论成功或失败都上传
+        uses: actions/upload-artifact@v3
+        with:
+          name: strategy-logs
+          path: strategy.log  # 或实际日志文件路径
