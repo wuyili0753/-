@@ -23,4 +23,4 @@ jobs:
 
       - name: Run strategy
         run: |
-          python dividend_etf_strategy.py
+          python 红利三剑客.py
