@@ -1,0 +1,26 @@
+name: ETF Strategy Runner
+
+on:
+  schedule:
+    - cron: '0 12 * * *'→ ​​UTC 12:00 PM（北京时间 20:00 PM）
+  workflow_dispatch:     # 允许手动触发
+
+jobs:
+  run-strategy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas numpy matplotlib requests
+
+      - name: Run strategy
+        run: |
+          python dividend_etf_strategy.py
