@@ -2,7 +2,7 @@ name: ETF Strategy Runner
 
 on:
   schedule:
-    - cron: '0 12 * * *'→ ​​UTC 12:00 PM（北京时间 20:00 PM）
+    - cron: '0 12 * * *'  # UTC 时间 12:00 PM（北京时间 20:00 PM）
   workflow_dispatch:     # 允许手动触发
 
 jobs:
