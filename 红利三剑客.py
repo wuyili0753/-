@@ -191,33 +191,15 @@ if __name__ == "__main__":
             print(f"\n当前推荐标的: {ETF_MAP[best_ticker]}({best_ticker})")
         else:
             print("无法生成有效信号")
-            import requests
-
+ # ================== 微信通知 ==================
 def send_wechat_notification(message):
-    """通过 Server酱 发送微信通知"""
-    sendkey = "SCT293135TZLVzpANuYb17FhoQ248enhYR"  # 替换成你的 SendKey（后面会讲如何获取）
+    sendkey = "SCT293135TZLVzpANuYb17FhoQ248enhYRerver酱_SendKey"  # 必须替换！
     url = f"https://sctapi.ftqq.com/{sendkey}.send"
-    data = {
-        "text": "红利三剑客",  # 微信消息标题
-        "desp": message           # 微信消息内容（详细信息）
-    }
+    data = {"text": "红利三剑客", "desp": message}
+    
     try:
-        response = requests.post(url, data=data)
+        response = requests.post(url, json=data, timeout=10)
+        response.raise_for_status()
         print("微信通知发送成功:", response.text)
-    except Exception as e:
-        print("微信通知发送失败:", str(e))
-
-# 在选股完成后调用（示例）
-if 'selected_etf' in locals() and 'last_signal' in locals():
-    selected_name = ETF_CONFIG[selected_etf]['name']
-    message = f"""
-    📈 **今日ETF轮动结果**
-    - **推荐ETF**: {selected_name} ({selected_etf})
-    - **信号强度**: {last_signal[selected_etf]:.4f}
-    - **股息率**: {div_rates.get(selected_etf, 'N/A')}%
-    - **运行时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-    """
-    send_wechat_notification(message)
-else:
-
-    send_wechat_notification("❌ 策略运行失败，请检查日志！")
+    except requests.RequestException as e:
+        print(f"微信通知失败: {e}")
